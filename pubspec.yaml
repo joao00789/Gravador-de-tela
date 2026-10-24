@@ -1,24 +1,22 @@
 name: b13_falcon
-description: "B13 FALCON - Screen Recorder"
+description: B13 FALCON
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '>=2.19.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.8
-  path_provider: ^2.1.4
-  shared_preferences: ^2.2.3
+  cupertino_icons: ^1.0.2
+  path_provider: ^2.0.15
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^4.0.0
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
