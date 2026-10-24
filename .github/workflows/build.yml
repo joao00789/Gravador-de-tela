@@ -29,9 +29,6 @@ jobs:
       - name: Install Android SDK components
         uses: android-actions/setup-android@v3
 
-      - name: Enable KVM group permissions
-        run: echo 'KVM is available in the runner'
-
       - name: Flutter pub get
         run: flutter pub get
 
@@ -57,6 +54,3 @@ jobs:
         with:
           name: b13-falcon-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
-
-      - name: Provide APK download location
-        run: echo "APK disponível em: build/app/outputs/flutter-apk/app-debug.apk"
