@@ -31,3 +31,9 @@ jobs:
 
       - name: Build debug APK
         run: flutter build apk --debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: B13-FALCON-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
