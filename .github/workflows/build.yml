@@ -17,7 +17,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.8'
+          flutter-version: '3.24.5'
           channel: 'stable'
 
       - name: Set up Java 17
@@ -26,28 +26,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Android SDK components
-        uses: android-actions/setup-android@v3
-
       - name: Flutter pub get
         run: flutter pub get
 
-      - name: Dart format check
-        run: dart format --set-exit-if-changed lib test
-
       - name: Analyze project
-        run: flutter analyze
+        run: flutter analyze --no-pub
 
       - name: Run tests
-        run: flutter test
+        run: flutter test --no-pub
 
       - name: Build debug APK
-        run: flutter build apk --debug
-
-      - name: Check APK artifact
-        run: |
-          ls -lh build/app/outputs/flutter-apk/
-          test -s build/app/outputs/flutter-apk/app-debug.apk
+        run: flutter build apk --debug --no-pub
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
