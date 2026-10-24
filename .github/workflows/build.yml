@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6'
+          flutter-version: '3.47.8'
           channel: 'stable'
 
       - name: Set up Java 17
@@ -26,14 +26,37 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Install Android SDK components
+        uses: android-actions/setup-android@v3
+
+      - name: Enable KVM group permissions
+        run: echo 'KVM is available in the runner'
+
       - name: Flutter pub get
         run: flutter pub get
+
+      - name: Dart format check
+        run: dart format --set-exit-if-changed lib test
+
+      - name: Analyze project
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
 
       - name: Build debug APK
         run: flutter build apk --debug
 
-      - name: Upload APK
+      - name: Check APK artifact
+        run: |
+          ls -lh build/app/outputs/flutter-apk/
+          test -s build/app/outputs/flutter-apk/app-debug.apk
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: B13-FALCON-debug
+          name: b13-falcon-debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
+
+      - name: Provide APK download location
+        run: echo "APK disponível em: build/app/outputs/flutter-apk/app-debug.apk"
